@@ -9,9 +9,20 @@ var app = http.createServer(function (request, response) {
   if (pathname === '/') {
     // undefined -> 정의되지 않았다는 뜻.
     if (queryData.id === undefined) {
+      fs.readdir('./', function(error, filelist){
+        console.log(filelist);
 
         var title = 'Welcome';
         var description = 'Hello, Node.js';
+        /*
+        let list = `<ul>
+        <li><a href="/?id=HTML">HTML</a></li>
+        <li><a href="/?id=CSS">CSS</a></li>
+        <li><a href="/?id=JavaScript">JavaScript</a></li>
+      </ul>`;
+      */
+
+      
         var template = `
           <!doctype html>
           <html>
@@ -21,11 +32,7 @@ var app = http.createServer(function (request, response) {
           </head>
           <body>
             <h1><a href="/">WEB</a></h1>
-            <ul>
-              <li><a href="/?id=HTML">HTML</a></li>
-              <li><a href="/?id=CSS">CSS</a></li>
-              <li><a href="/?id=JavaScript">JavaScript</a></li>
-            </ul>
+            
             <h2>${title}</h2>
             <p>${description}</p>
           </body>
@@ -33,6 +40,8 @@ var app = http.createServer(function (request, response) {
           `;
         response.writeHead(200);
         response.end(template);
+      })
+       
         
     } else {
       fs.readFile(`data/${queryData.id}`, 'utf8', function (err, description) {
