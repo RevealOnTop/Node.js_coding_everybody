@@ -13,6 +13,7 @@ console.log('C');
 /*Sync가 없으면 비동기적인 방식으로 처리 하는 것. */ 
 /* 출력은 A, C , B 순서로 나오게 됨 */
 console.log('A');
+
 fs.readFile('syntax/sample.txt', 'utf8', function(err, result){
     console.log(result);
 });
